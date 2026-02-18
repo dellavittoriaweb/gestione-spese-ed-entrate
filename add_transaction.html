@@ -1,0 +1,141 @@
+<!DOCTYPE html> 
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aggiungi Transazione</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        form {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 12px;
+            width: 420px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        select, input {
+            display: block;
+            margin: 12px auto;
+            padding: 12px;
+            width: 90%;
+            font-size: 16px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+        }
+        button {
+            background: #ff9800;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 15px;
+            width: 100%;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #e68900;
+        }
+    </style>
+    <script>
+        function updateCategories() {
+            var tipo = document.getElementById("tipo").value;
+            var categoria = document.getElementById("categoria");
+            categoria.innerHTML = ""; // Reset categoria
+
+            var spese = [
+                { id: 1, nome: "Cibo" },
+                { id: 2, nome: "Prodotti per la casa" },
+                { id: 3, nome: "Svago, Tempo Libero e Hobby" },
+                { id: 4, nome: "Eventi e Serate" },
+                { id: 5, nome: "Viaggi e Vacanze" },
+                { id: 6, nome: "Tecnologia e Comunicazione" },
+                { id: 7, nome: "Trasporti pubblici o personali" },
+                { id: 8, nome: "Affitto/Mutuo Casa e Manutenzione casa" },
+                { id: 9, nome: "Tassa Rifiuti" },
+                { id: 10, nome: "Spese condominiali" },
+                { id: 11, nome: "Bollette" },
+                { id: 12, nome: "Abbigliamento e Cura Personale" },
+                { id: 13, nome: "Istruzione/Formazione" },
+                { id: 14, nome: "Spese per prendere la patente" },
+                { id: 15, nome: "Salute" },
+                { id: 16, nome: "Spese varie e imprevisti" }
+            ];
+
+            var entrate = [
+                { id: 17, nome: "Gioco d’azzardo" },
+                { id: 18, nome: "Entrate da attività digitali" },
+                { id: 19, nome: "Vendita di beni o servizi usati" },
+                { id: 20, nome: "Regali ed Eredità da Parenti" },
+                { id: 21, nome: "Rimborsi e risarcimenti" },
+                { id: 22, nome: "Stipendio da lavoro dipendente" },
+                { id: 23, nome: "Lavoro autonomo e Partita IVA" },
+                { id: 24, nome: "Lavoro occasionale" },
+                { id: 25, nome: "Affitti percepiti" },
+                { id: 26, nome: "Dividendi e profitti da investimenti" },
+                { id: 27, nome: "Rendite da diritti d’autore o brevetti" },
+                { id: 28, nome: "Pensioni e trattamenti previdenziali" },
+                { id: 29, nome: "Assegni familiari e supporti per figli" },
+                { id: 30, nome: "Borse di studio e finanziamenti per studenti" },
+                { id: 31, nome: "Guadagni da e-commerce" },
+                { id: 32, nome: "Guadagni da scrittura, musica, video" }
+            ];
+
+            var options = tipo === "Spesa" ? spese : entrate;
+            options.forEach(function(cat) {
+                var option = document.createElement("option");
+                option.value = cat.id;  
+                option.textContent = cat.nome;  
+                categoria.appendChild(option);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Qui puoi aggiungere le tue transazioni</h1>
+    <form action="/add_transaction" method="post">
+        <h2>Aggiungi una nuova transazione</h2>
+        
+        <label for="importo">Importo:</label>
+        <input type="number" id="importo" name="importo" step="0.01" required>
+        
+        <label for="data">Data:</label>
+        <input type="date" id="data" name="data" required>
+        
+        <label for="tipo">Tipo:</label>
+        <select id="tipo" name="tipo" onchange="updateCategories()" required>
+            <option value="">Seleziona</option>
+            <option value="Spesa">Spesa</option>
+            <option value="Entrata">Entrata</option>
+        </select>
+        
+        <label for="categoria">Categoria:</label>
+        <select id="categoria" name="categoria" required>
+            <option value="">Seleziona tipo prima</option>
+        </select>
+        
+        <button type="submit">Aggiungi</button>
+    </form>
+</body>
+</html>

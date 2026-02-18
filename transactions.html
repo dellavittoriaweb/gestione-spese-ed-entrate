@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le tue Transazioni</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .btn {
+            background-color: #0072ff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #005bb5;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        table th, table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        table th {
+            background-color: #0072ff;
+        }
+        .totals {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-around;
+            font-size: 18px;
+        }
+        .totals div {
+            padding: 10px;
+            background-color: #444;
+            border-radius: 5px;
+            width: 30%;
+            text-align: center;
+        }
+        .totals .balance {
+            background-color: #4caf50;
+        }
+        .totals .expense {
+            background-color: #f44336;
+        }
+        .totals .income {
+            background-color: #2196f3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Le tue Transazioni</h1>
+    <a href="/add_transaction" class="btn">Aggiungi Transazione</a>
+    <a href="{{ url_for('logout') }}" class="btn btn-danger">Esci</a> <!-- Tasto Logout -->
+
+    <table>
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Importo</th>
+                <th>Tipo</th>
+                <th>Categoria</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transazione in transazioni %}
+            <tr>
+                <td>{{ transazione[1] }}</td>
+                <td>{{ transazione[0] }} €</td>
+                <td>{{ transazione[2] }}</td>
+                <td>{{ transazione[3] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="totals">
+        <div class="income">
+            <h3>Entrate Totali</h3>
+            <p>{{ total_income }} €</p>
+        </div>
+        <div class="expense">
+            <h3>Spese Totali</h3>
+            <p>{{ total_expense }} €</p>
+        </div>
+        <div class="balance">
+            <h3>Saldo</h3>
+            <p>{{ balance }} €</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
