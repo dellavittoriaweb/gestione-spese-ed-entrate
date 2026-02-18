@@ -19,7 +19,7 @@ def get_cursor():
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('index.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -139,4 +139,5 @@ def logout():
     return redirect(url_for('home'))
 
 if __name__ == '__main__':
+
     app.run(debug=True)
